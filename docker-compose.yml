@@ -1,0 +1,50 @@
+services:
+  nginx_1:
+    image: nginx:alpine
+    container_name: nginx_1
+    volumes:
+      - ./nginx-configs/nginx1.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8081:80"
+    networks:
+      - net
+    depends_on:
+      - nginx_2
+
+  nginx_2:
+    image: nginx:alpine
+    container_name: nginx_2
+    volumes:
+      - ./nginx-configs/nginx2.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8082:80"
+    networks:
+      - net
+    depends_on:
+      - nginx_3
+
+  nginx_3:
+    image: nginx:alpine
+    container_name: nginx_3
+    volumes:
+      - ./nginx-configs/nginx3.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8083:80"
+    networks:
+      - net
+    depends_on:
+      - app
+
+  app:
+    image: containous/whoami:latest
+    container_name: test_app
+
+    networks:
+      - net
+    
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
