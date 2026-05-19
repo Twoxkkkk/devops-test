@@ -11,7 +11,6 @@ curl -H "X-Forwarded-For: 99.99.99.99" http://localhost:8081/
 
 
 Видим, что nginx перетер подмену хэдэра и вывел всю цепь, где _**172.18.0.1**_ - адрес виртуального сетевого шлюза.
-```
 ```bash
 Hostname: e135898b73f9
 IP: 127.0.0.1
@@ -51,7 +50,7 @@ X-Forwarded-For: 172.18.0.1, 172.18.0.4
 
 Попытаемся заспуфить хэдэр X-Forwarded-For с помощью утилиты curl, обращаясь ко второму nginx:
 ``` bash
-curl -H "X-Forwarded-For: 99.99.99.99" http://localhost:8082/
+curl -H "X-Forwarded-For: 99.99.99.99" http://localhost:8083/
 ```
 
 
